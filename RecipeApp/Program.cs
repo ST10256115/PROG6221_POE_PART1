@@ -9,39 +9,46 @@ namespace RecipeApp
         {
             Console.WriteLine("Welcome to Recipe App!");
 
+            Recipe recipe = null;
+            bool recipeCreated = false;
+
             while (true)
             {
-                Console.WriteLine("\nPlease enter recipe details:");
-
-                Console.Write("Number of ingredients: ");
-                int ingredientCount = int.Parse(Console.ReadLine());
-
-                List<Ingredient> ingredients = new List<Ingredient>();
-                for (int i = 0; i < ingredientCount; i++)
+                if (!recipeCreated)
                 {
-                    Console.WriteLine($"\nIngredient {i + 1}:");
-                    Console.Write("Name: ");
-                    string name = Console.ReadLine();
-                    Console.Write("Quantity: ");
-                    double quantity = double.Parse(Console.ReadLine());
-                    Console.Write("Unit of measurement: ");
-                    string unit = Console.ReadLine();
+                    Console.WriteLine("\nPlease enter recipe details:");
 
-                    ingredients.Add(new Ingredient(name, quantity, unit));
+                    Console.Write("Number of ingredients: ");
+                    int ingredientCount = int.Parse(Console.ReadLine());
+
+                    List<Ingredient> ingredients = new List<Ingredient>();
+                    for (int i = 0; i < ingredientCount; i++)
+                    {
+                        Console.WriteLine($"\nIngredient {i + 1}:");
+                        Console.Write("Name: ");
+                        string name = Console.ReadLine();
+                        Console.Write("Quantity: ");
+                        double quantity = double.Parse(Console.ReadLine());
+                        Console.Write("Unit of measurement: ");
+                        string unit = Console.ReadLine();
+
+                        ingredients.Add(new Ingredient(name, quantity, unit));
+                    }
+
+                    Console.Write("\nNumber of steps: ");
+                    int stepCount = int.Parse(Console.ReadLine());
+
+                    List<string> steps = new List<string>();
+                    for (int i = 0; i < stepCount; i++)
+                    {
+                        Console.WriteLine($"\nStep {i + 1}:");
+                        Console.Write("What to do: ");
+                        steps.Add(Console.ReadLine());
+                    }
+
+                    recipe = new Recipe(ingredients, steps);
+                    recipeCreated = true;
                 }
-
-                Console.Write("\nNumber of steps: ");
-                int stepCount = int.Parse(Console.ReadLine());
-
-                List<string> steps = new List<string>();
-                for (int i = 0; i < stepCount; i++)
-                {
-                    Console.WriteLine($"\nStep {i + 1}:");
-                    Console.Write("What to do: ");
-                    steps.Add(Console.ReadLine());
-                }
-
-                Recipe recipe = new Recipe(ingredients, steps);
 
                 Console.WriteLine("\nRecipe details:");
                 Console.WriteLine(recipe);
@@ -71,12 +78,13 @@ namespace RecipeApp
                         break;
                     case 2:
                         recipe.ResetQuantity();
-                        Console.WriteLine("\nQuantity reset to 1.");
+                        Console.WriteLine("\nQuantity reset to original values.");
                         Console.WriteLine("\nRecipe details:");
                         Console.WriteLine(recipe);
                         break;
                     case 3:
                         Console.WriteLine("\nRecipe cleared.");
+                        recipeCreated = false;
                         break;
                     case 4:
                         Environment.Exit(0);

@@ -5,6 +5,7 @@ namespace RecipeApp
 {
     class Recipe
     {
+        private readonly List<Ingredient> originalIngredients; // Store original ingredients
         public List<Ingredient> Ingredients { get; set; }
         public List<string> Steps { get; set; }
 
@@ -12,6 +13,7 @@ namespace RecipeApp
         {
             Ingredients = ingredients;
             Steps = steps;
+            originalIngredients = new List<Ingredient>(ingredients); // Store original ingredients
         }
 
         public void Rescale(int option)
@@ -36,17 +38,19 @@ namespace RecipeApp
                     return;
             }
 
-            foreach (Ingredient ingredient in Ingredients)
+            for (int i = 0; i < Ingredients.Count; i++)
             {
-                ingredient.Quantity *= scale;
+                // Scale based on original quantity
+                Ingredients[i].Quantity = originalIngredients[i].Quantity * scale;
             }
         }
 
         public void ResetQuantity()
         {
-            foreach (Ingredient ingredient in Ingredients)
+            for (int i = 0; i < Ingredients.Count; i++)
             {
-                ingredient.Quantity = 1.0;
+                // Revert to original quantity
+                Ingredients[i].Quantity = originalIngredients[i].Quantity;
             }
         }
 
