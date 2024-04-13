@@ -5,7 +5,7 @@ namespace RecipeApp
 {
     class Recipe
     {
-        private readonly List<Ingredient> originalIngredients; // Store original ingredients
+        private readonly List<Ingredient> originalIngredients; 
         public List<Ingredient> Ingredients { get; set; }
         public List<string> Steps { get; set; }
 
@@ -13,7 +13,7 @@ namespace RecipeApp
         {
             Ingredients = ingredients;
             Steps = steps;
-            originalIngredients = new List<Ingredient>(ingredients); // Store original ingredients
+            originalIngredients = new List<Ingredient>(ingredients); 
         }
 
         public void Rescale(int option)
