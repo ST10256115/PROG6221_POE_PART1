@@ -5,7 +5,7 @@ namespace RecipeApp
 {
     class Recipe
     {
-        private readonly List<Ingredient> originalIngredients; 
+        private readonly List<Ingredient> originalIngredients; // Store original ingredients
         public List<Ingredient> Ingredients { get; set; }
         public List<string> Steps { get; set; }
 
@@ -13,7 +13,7 @@ namespace RecipeApp
         {
             Ingredients = ingredients;
             Steps = steps;
-            originalIngredients = new List<Ingredient>(ingredients); 
+            originalIngredients = new List<Ingredient>(ingredients); // Store original ingredients
         }
 
         public void Rescale(int option)
@@ -52,6 +52,17 @@ namespace RecipeApp
                 // Revert to original quantity
                 Ingredients[i].Quantity = originalIngredients[i].Quantity;
             }
+        }
+
+        public void SaveOriginalRecipe()
+        {
+            originalIngredients.Clear();
+            originalIngredients.AddRange(Ingredients);
+        }
+
+        public void ClearOriginalRecipe()
+        {
+            originalIngredients.Clear();
         }
 
         public override string ToString()

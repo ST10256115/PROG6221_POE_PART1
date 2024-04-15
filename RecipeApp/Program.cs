@@ -11,6 +11,7 @@ namespace RecipeApp
 
             Recipe recipe = null;
             bool recipeCreated = false;
+            bool originalRecipeSaved = false;
 
             while (true)
             {
@@ -48,6 +49,7 @@ namespace RecipeApp
 
                     recipe = new Recipe(ingredients, steps);
                     recipeCreated = true;
+                    originalRecipeSaved = false; // Ensure original recipe is not saved when starting a new recipe
                 }
 
                 Console.WriteLine("\nRecipe details:");
@@ -56,8 +58,10 @@ namespace RecipeApp
                 Console.WriteLine("\nOptions:");
                 Console.WriteLine("1. Rescale recipe");
                 Console.WriteLine("2. Reset quantity");
-                Console.WriteLine("3. Clear recipe");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("3. Save original recipe");
+                Console.WriteLine("4. Clear original recipe");
+                Console.WriteLine("5. Clear recipe and start new");
+                Console.WriteLine("6. Exit");
 
                 Console.Write("Enter option: ");
                 int option = int.Parse(Console.ReadLine());
@@ -83,10 +87,28 @@ namespace RecipeApp
                         Console.WriteLine(recipe);
                         break;
                     case 3:
-                        Console.WriteLine("\nRecipe cleared.");
-                        recipeCreated = false;
+                        if (!originalRecipeSaved)
+                        {
+                            recipe.SaveOriginalRecipe();
+                            Console.WriteLine("\nOriginal recipe saved.");
+                            originalRecipeSaved = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nOriginal recipe is already saved.");
+                        }
                         break;
                     case 4:
+                        recipe.ClearOriginalRecipe();
+                        Console.WriteLine("\nOriginal recipe cleared.");
+                        originalRecipeSaved = false; // Ensure original recipe is not saved after clearing
+                        break;
+                    case 5:
+                        recipeCreated = false;
+                        originalRecipeSaved = false; // Ensure original recipe is not saved when starting a new recipe
+                        Console.WriteLine("\nRecipe cleared and ready for new recipe.");
+                        break;
+                    case 6:
                         Environment.Exit(0);
                         break;
                     default:
