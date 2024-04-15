@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RecipeApp
 {
-    class Recipe
+    class Recipe//functions and procedures
     {
         private readonly List<Ingredient> originalIngredients; // Store original ingredients
         public List<Ingredient> Ingredients { get; set; }
