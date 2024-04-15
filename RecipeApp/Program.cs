@@ -17,7 +17,8 @@ namespace RecipeApp
             {
                 if (!recipeCreated)
                 {
-                    Console.WriteLine("\nPlease enter recipe details:");
+                    Console.Clear(); // Clear the console when starting a new recipe
+                    Console.WriteLine("Please enter recipe details:");
 
                     Console.Write("Number of ingredients: ");
                     int ingredientCount = int.Parse(Console.ReadLine());
@@ -104,6 +105,7 @@ namespace RecipeApp
                         originalRecipeSaved = false; // Ensure original recipe is not saved after clearing
                         break;
                     case 5:
+                        Console.Clear(); // Clear the console when starting a new recipe
                         recipeCreated = false;
                         originalRecipeSaved = false; // Ensure original recipe is not saved when starting a new recipe
                         Console.WriteLine("\nRecipe cleared and ready for new recipe.");
